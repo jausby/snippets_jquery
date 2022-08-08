@@ -1,0 +1,14 @@
+$(document).ready(function () {
+    // custom event listener logic
+    $(document).on('MyCustomEvent/Event', function (e, results) {
+        var msg = null;
+        if (results !== 'undefined' && results !== null && typeof results === 'string' && results.trim().length > 0) {
+            msg = results.trim();
+        }
+        console.log('Custom Event Triggered : ' + msg );
+        alert('Custom Event Triggered. : ' + msg);
+    });
+
+    // Trigger the Event
+    $(document).trigger('MyCustomEvent/Event', 'Event Message = Hello World...');
+});
