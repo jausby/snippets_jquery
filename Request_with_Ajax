@@ -1,0 +1,42 @@
+function _ExecuteRequest(url, method) {
+    $.ajax(
+        {
+            url: url,
+            method: method,
+            cache: false,
+            error: function (jqXHR, exception) {
+                var msg = '';
+                if (jqXHR.status === 0) {
+                    msg = 'Not connect.\n Verify Network.';
+                } else if (jqXHR.status === 404) {
+                    msg = 'Requested page not found. [404]';
+                } else if (jqXHR.status === 500) {
+                    msg = 'Internal Server Error [500].';
+                } else if (exception === 'parsererror') {
+                    msg = 'Requested JSON parse failed.';
+                } else if (exception === 'timeout') {
+                    msg = 'Time out error.';
+                } else if (exception === 'abort') {
+                    msg = 'Ajax request aborted.';
+                } else {
+                    msg = 'Uncaught Error.\n' + jqXHR.responseText;
+                }
+            }
+        }).done(function (d) {
+            if (typeof jqxhr !== 'undefined' && typeof d !== 'undefined') {
+                // determine if the data needs to be parsed
+                if (!_IsJsonString(d)) {
+                    // already parsed and is valid JSON
+                    return d;
+                }
+                else {
+                    return JSON.parse(d);
+                }
+            }
+        }).fail(function () {
+            alert("Error Retrieving Community Map Data...");
+        })
+        .always(function () {
+            // alert("complete");
+        });
+}
