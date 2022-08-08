@@ -1,0 +1,22 @@
+    // function to pad zeros, to a specific length
+    function PadZeros(num, padLen) {
+        if (num !== 'undefined' && num !== null && padLen !== 'undefined' && padLen !== null) {
+            var numStrLen = num.toString().trim().length;
+            var loopCnt;
+            if (numStrLen < padLen) {
+                loopCnt = padLen - numStrLen;
+                for (var i = 0; i < loopCnt; i++) {
+                    num = "0" + num;
+                }
+                return num.toString().trim();
+            }
+            else {
+                return num.toString().trim();
+            }
+        }
+        return null;
+    }
+
+    // execute
+    // string result = "00000012345"
+    PadZeros(12345, 11);
